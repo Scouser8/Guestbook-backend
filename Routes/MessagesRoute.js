@@ -34,8 +34,13 @@ router.put("/:id/edit", (req, res) => {
 
 router.delete("/:id/delete", (req, res) => {
   const messageToDelete = req.params.id;
-  Messages.deleteOne({ _id: messageToDelete }, () => {
-    res.send("Message deleted.");
+  console.log(messageToDelete);
+  Messages.deleteOne({ _id: messageToDelete }, (err, data) => {
+    if (err) {
+      res.json("Delete Failed");
+    } else {
+      res.send("Deleted");
+    }
   });
 });
 

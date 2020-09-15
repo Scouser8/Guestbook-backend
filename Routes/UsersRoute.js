@@ -26,7 +26,7 @@ router.post("/register", (req, res) => {
             if (err) {
               res.status(500).send(err);
             } else {
-              res.status(201).send("New user created successfully.");
+              res.status(201).send("New user created successfully");
             }
           });
         })
