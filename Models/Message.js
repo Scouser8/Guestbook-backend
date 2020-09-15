@@ -8,10 +8,16 @@ const messageSchema = mongoose.Schema(
     },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
+    user_name: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const messageModel = mongoose.model("Messages", messageSchema);
+const messageModel = mongoose.model("messages", messageSchema);
 module.exports = messageModel;

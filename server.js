@@ -20,7 +20,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connected to MongoDB Atlas"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log("Atlas not responding"));
 
 const db = mongoose.connection;
 
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", require("./Routes/UsersRoute.js"));
-// app.use("/message", require("./Routes/MessagesRoute"));
+app.use("/message", require("./Routes/MessagesRoute.js"));
 
 //Start the server listening on the above determined port.
 app.listen(port, () => console.log(`Server running locally on port: ${port}`));

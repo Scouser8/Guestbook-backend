@@ -22,5 +22,13 @@ const userSchema = mongoose.Schema({
   },
 });
 
+// To prevent sending the password when returning
+// the user object to the client.
+userSchema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.password;
+    return obj;
+   }
+
 const userModel = mongoose.model("users", userSchema);
 module.exports = userModel;

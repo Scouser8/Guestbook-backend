@@ -51,7 +51,7 @@ router.post("/login", (req, res) => {
         }
         if (isMatched) {
           console.log("Logged In");
-          res.status(201).send("You have logged in successfully!");
+          res.status(201).send(user);
         } else {
           console.log("Failed");
           res.send("Wrong");
