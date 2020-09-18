@@ -24,7 +24,7 @@ router.post("/register", (req, res) => {
 
           Users.create(newUser, (err, data) => {
             if (err) {
-              res.status(500).send(err);
+              res.status(500).send("Error");
             } else {
               res.status(201).send("New user created successfully");
             }
@@ -42,7 +42,7 @@ router.post("/login", (req, res) => {
   Users.findOne({ user_name: userData.user_name }, (err, user) => {
     if (err) throw err;
     else if (!user) {
-      res.send("username not found");
+      res.send("bad user");
     } else {
       bcrypt.compare(userData.password, user.password, (err, isMatched) => {
         if (err) {
@@ -54,7 +54,7 @@ router.post("/login", (req, res) => {
           res.status(201).send(user);
         } else {
           console.log("Failed");
-          res.send("Wrong");
+          res.send("Wrong Password");
         }
       });
     }

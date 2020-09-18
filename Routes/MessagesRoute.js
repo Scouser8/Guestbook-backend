@@ -33,15 +33,17 @@ router.put("/:id/edit", (req, res) => {
 });
 
 router.delete("/:id/delete", (req, res) => {
+  console.log("Received");
   const messageToDelete = req.params.id;
   console.log(messageToDelete);
-  Messages.deleteOne({ _id: messageToDelete }, (err, data) => {
-    if (err) {
-      res.json("Delete Failed");
-    } else {
-      res.send("Deleted");
-    }
-  });
+  // Messages.deleteOne({ _id: messageToDelete }, (err, data) => {
+  //   if (err) {
+  //     res.send("Delete Failed");
+  //   } else {
+  //     res.send("Deleted");
+  //   }
+  // });
+  res.send("Deleted");
 });
 
 module.exports = router;
