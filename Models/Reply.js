@@ -6,10 +6,19 @@ const replySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    message: {
+    message_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"messages",
-      required:true
+      ref: "messages",
+      required: true,
+    },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
+    user_name: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

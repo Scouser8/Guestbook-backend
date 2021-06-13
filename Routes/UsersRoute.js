@@ -8,31 +8,34 @@ router.post("/register", (req, res) => {
   const newUser = req.body;
   console.log(newUser.password);
 
-  Users.findOne({ user_name: newUser.user_name }, (err, user) => {
-    if (err) throw err;
-    else if (user) {
-      res.send("Invalid");
-    } else {
-      bcrypt.genSalt(10, (err, salt) =>
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          //   if(Users.find({password: hash}))
-          console.log(Users.find({ password: hash }));
-          newUser.password = hash;
+  Users.findOne(
+    { $or: [{ user_name: newUser.user_name }, { email: newUser.email }] },
+    (err, user) => {
+      if (err) throw err;
+      else if (user) {
+        res.send("Username or email already exists");
+      } else {
+        bcrypt.genSalt(10, (err, salt) =>
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            //   if(Users.find({password: hash}))
+            console.log(Users.find({ password: hash }));
+            newUser.password = hash;
 
-          console.log(`Hashed password: ${newUser.password}`);
+            console.log(`Hashed password: ${newUser.password}`);
 
-          Users.create(newUser, (err, data) => {
-            if (err) {
-              res.status(500).send("Error");
-            } else {
-              res.status(201).send("New user created successfully");
-            }
-          });
-        })
-      );
+            Users.create(newUser, (err, data) => {
+              if (err) {
+                res.status(500).send("Error");
+              } else {
+                res.status(201).send("New user created successfully");
+              }
+            });
+          })
+        );
+      }
     }
-  });
+  );
 });
 
 //Authenticate user

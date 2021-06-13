@@ -50,6 +50,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", require("./Routes/UsersRoute.js"));
 app.use("/message", require("./Routes/MessagesRoute.js"));
+app.use("/reply", require("./Routes/RepliesRoute.js"));
 
 //Start the server listening on the above determined port.
 app.listen(port, () => console.log(`Server running locally on port: ${port}`));

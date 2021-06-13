@@ -4,13 +4,15 @@ const Messages = require("../Models/Message");
 
 router.get("/", (req, res) => {
   const newMessage = req.body;
-  Messages.find({}, (err, messages) => {
-    if (err) {
-      res.send("Couldn't fetch message.");
-    } else {
-      res.status(201).send(messages);
-    }
-  });
+  Messages.find({})
+    .sort({ createdAt: -1 })
+    .exec((err, messages) => {
+      if (err) {
+        res.send("Couldn't fetch messages.");
+      } else {
+        res.status(201).send(messages);
+      }
+    });
 });
 
 router.post("/:userId/add", (req, res) => {
@@ -36,14 +38,14 @@ router.delete("/:id/delete", (req, res) => {
   console.log("Received");
   const messageToDelete = req.params.id;
   console.log(messageToDelete);
-  // Messages.deleteOne({ _id: messageToDelete }, (err, data) => {
-  //   if (err) {
-  //     res.send("Delete Failed");
-  //   } else {
-  //     res.send("Deleted");
-  //   }
-  // });
-  res.send("Deleted");
+  Messages.deleteOne({ _id: messageToDelete }, (err, data) => {
+    if (err) {
+      res.send("Delete Failed");
+    } else {
+      res.send("Message Deleted");
+    }
+  });
+  // res.send("Deleted");
 });
 
 module.exports = router;
